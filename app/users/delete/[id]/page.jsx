@@ -1,28 +1,23 @@
+
 import { getConnection } from "../../../../lib/dbsqlazure";
-import { redirect } from "next/navigation";
+import DeleteUserForm from "./DeleteUserForm";
 
-export default async function DeleteUser({ searchParams }) {
-    const userId = searchParams.id;
+export default async function DeleteUser({ params }) {
+    const userId = params?.id;
 
-    async function handleDeleteUser() {
-        "use server";
+    if (!userId) return <h1>Error: Missing User ID</h1>;
 
-        try {
-            const pool = await getConnection();
-            await pool.request().input("id", userId).query("DELETE FROM T_Register WHERE Id = @id");
+    let user = null;
 
-            redirect("/users");
-        } catch (error) {
-            console.error("Error deleting user:", error);
-        }
+    try {
+        const pool = await getConnection();
+        const result = await pool.request()
+            .input("id", userId)
+            .query("SELECT FROM T_Register WHERE Id = @id");
+        user = result.recordset[0];
+    } catch (error) {
+        console.error("Error deleting user:", error);
     }
 
-    return (
-        <form action={handleDeleteUser}>
-            <h1>Delete User</h1>
-            <p>Are you sure you want to delete this user?</p>
-            <button type="submit">Yes, Delete</button>
-            <a href="/users">Cancel</a>
-        </form>
-    );
+    return <DeleteUserForm user={user} userId={userId} />;
 }

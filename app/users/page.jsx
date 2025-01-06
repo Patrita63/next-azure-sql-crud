@@ -25,7 +25,7 @@ export default async function UsersPage() {
                         {user.Nome} - {user.Cognome} - {user.Email} - {user.DataDiNascita} - {user.Phone} - {user.IdTipoUtente} - {user.DataRegistrazione}
                         {/* <Link href={`/users/update?id=${user.Id}`}><button>Edit</button></Link> */}
                         <Link href={`/users/update/${user.Id}`}><button>Edit</button></Link> {/* ✅ FIXED */}
-                        <form action={`/users/delete?id=${user.Id}`} method="POST">
+                        <form action={`/users/delete/${user.Id}`} method="POST">
                             <button type="submit">Delete</button>
                         </form>
                     </li>
