@@ -1,4 +1,4 @@
-import { getConnection } from "../../../lib/dbsqlazure";
+import { getConnection } from "../../../../lib/dbsqlazure";
 import { redirect } from "next/navigation";
 
 export default async function DeleteUser({ searchParams }) {
