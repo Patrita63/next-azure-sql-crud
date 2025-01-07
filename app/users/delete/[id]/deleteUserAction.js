@@ -6,7 +6,7 @@ export default async function deleteUserOnServer(userId) {
         const pool = await getConnection();
         await pool.request()
             .input("id", userId)
-            .query("DELETE FROM T_Register WHERE Id = @id");
+            .query("DELETE FROM T_Register WHERE Id = @id OPTION (RECOMPILE)"); // -- ✅ Prevents cached execution
 
         console.log("User deleted successfully on the server");
     } catch (error) {

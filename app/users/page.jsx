@@ -1,12 +1,14 @@
 import { getConnection } from "../../lib/dbsqlazure";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic"; // ✅ Prevents stale Next.js caching
+
 export default async function UsersPage() {
     let users = [];
 
     try {
         const pool = await getConnection();
-        const query = 'SELECT * FROM T_Register';
+        const query = 'SELECT * FROM T_Register ORDER BY Id DESC OPTION (RECOMPILE)';  // -- ✅ Prevents cached queries
         console.log('UsersPage - query: ' + query);
         const result = await pool.request().query(query);
         users = result.recordset;

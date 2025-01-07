@@ -8,7 +8,7 @@ export default async function updateUserOnServer(userId, Nome, Email) {
             .input("id", userId)
             .input("name", Nome)
             .input("email", Email)
-            .query("UPDATE T_Register SET Nome = @name, Email = @email WHERE Id = @id");
+            .query("UPDATE T_Register SET Nome = @name, Email = @email WHERE Id = @id OPTION (RECOMPILE)"); // -- ✅ Prevents cached execution
 
         console.log("User updated successfully on the server");
     } catch (error) {
