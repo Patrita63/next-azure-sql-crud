@@ -1,5 +1,18 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Ignore local env and logs
+.env.local
+npm-debug.log*
+
+# Ignore build and cache files
+.next/
+.next/cache/
+out/
+dist/
+
+# Ignore node_modules (only install on server)
+node_modules/
+
 # dependencies
 /node_modules
 /.pnp
