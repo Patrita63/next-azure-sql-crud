@@ -25,11 +25,22 @@ export default function DeleteUserForm({ userId }) {
     }
 
     return (
-        <form action={handleDeleteUser}>
-            <h1>Delete User</h1>
-            <p>Are you sure you want to delete this user?</p>
-            <button type="submit">Yes, Delete</button>
-            <a href="/users">Cancel</a>
+        <form onSubmit={handleDeleteUser}>
+            <h1>Are you sure you want to delete user {userId}?</h1>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            <button type="submit" disabled={loading}>
+                {loading ? "Deleting..." : "Yes, Delete"}
+            </button>
+            <button type="button" onClick={() => router.push("/users")}>Cancel</button>
         </form>
     );
+
+    // return (
+    //     <form action={handleDeleteUser}>
+    //         <h1>Delete User</h1>
+    //         <p>Are you sure you want to delete this user?</p>
+    //         <button type="submit">Yes, Delete</button>
+    //         <a href="/users">Cancel</a>
+    //     </form>
+    // );
 }
